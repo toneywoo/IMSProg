@@ -30,6 +30,7 @@
 #include <QCloseEvent>
 #include <QSettings>
 #include "qhexedit.h"
+#include <QScrollBar>
 #include "dialogsp.h"
 #include "dialogrp.h"
 #include "dialogsetaddr.h"
@@ -177,7 +178,11 @@ MainWindow::MainWindow(QWidget *parent) :
  QFont heFont;
  heFont = QFont("Monospace", 10);
  hexEdit = new QHexEdit(ui->frame);
- hexEdit->setData(chipData);
+ 
+ // Initialize display optimization for large files
+ displayLimit = 64 * 1024;  // Default 64KB display limit
+ limitDisplayEnabled = true;
+ updateHexEditDisplay();  // Use helper function to apply display limit
  hexEdit->setHexCaps(true);
  hexEdit->setFont(heFont);
  QStringList commandLineParams = QCoreApplication::arguments();
@@ -2847,4 +2852,59 @@ void MainWindow::receiveAddr4(QString addressData)
     std::fill(point + startAddr, point + endAddr, fillingCode);
     hexEdit->setData(chipData);
     ui->statusMessage->setText("");
+}
+
+// Helper function to update hex edit display with optional size limit
+void MainWindow::updateHexEditDisplay()
+{
+    if (limitDisplayEnabled && chipData.size() > displayLimit) {
+        // Only display first N bytes to improve performance
+        hexEdit->setData(chipData.left(displayLimit));
+        
+        // Update status message to show display limit
+        QString msg = ui->statusMessage->text();
+        if (!msg.contains(tr("showing"))) {
+            ui->statusMessage->setText(msg + 
+                tr(" (showing first %1 KB)").arg(displayLimit / 1024));
+        }
+    } else {
+        // Display all data
+        hexEdit->setData(chipData);
+        limitDisplayEnabled = false;
+    }
+}
+
+// Load more data when user scrolls to bottom (auto-load feature)
+void MainWindow::loadMoreData()
+{
+    if (!limitDisplayEnabled || chipData.size() <= hexEdit->data().size()) {
+        return;  // No more data to load or limit disabled
+    }
+    
+    qint64 currentDisplaySize = hexEdit->data().size();
+    qint64 remainingSize = chipData.size() - currentDisplaySize;
+    
+    if (remainingSize <= 0) {
+        limitDisplayEnabled = false;
+        return;
+    }
+    
+    // Load next chunk (64KB at a time)
+    qint64 loadSize = qMin((qint64)(64 * 1024), remainingSize);
+    qint64 newDisplaySize = currentDisplaySize + loadSize;
+    
+    hexEdit->setData(chipData.left(newDisplaySize));
+    
+    // Update status message
+    ui->statusMessage->setText(tr("File: %1 | Loaded: %2 / %3 bytes (%4%)")
+        .arg(QFileInfo(fileName).fileName())
+        .arg(newDisplaySize)
+        .arg(chipData.size())
+        .arg(newDisplaySize * 100 / chipData.size()));
+    
+    // If all data loaded, disable limit
+    if (newDisplaySize >= chipData.size()) {
+        limitDisplayEnabled = false;
+        ui->statusMessage->setText(tr("All data loaded: %1 bytes").arg(chipData.size()));
+    }
 }

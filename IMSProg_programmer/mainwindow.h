@@ -133,6 +133,7 @@ private slots:
     void on_actionShow_programmer_version_triggered();
     void on_actionCheck_erase_triggered();
     void on_actionFill_with_code_triggered();
+    void loadMoreData();  // Load more data when scrolling to bottom
 
 private:
     Ui::MainWindow *ui;
@@ -170,6 +171,12 @@ private:
     QString fileName, oldFileName, newFileName;
     bool cmdStarted;
     QHexEdit *hexEdit;
+    
+    // Display optimization for large files
+    qint64 displayLimit;  // Display limit in bytes (default 64KB)
+    bool limitDisplayEnabled;  // Whether display limit is enabled
+    void updateHexEditDisplay();  // Helper function to update hex edit with limit
+    
     void ch341StatusFlashing();
     QByteArray block;
     uint32_t blockStartAddr, blockLen;
