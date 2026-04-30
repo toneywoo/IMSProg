@@ -865,12 +865,27 @@ void MainWindow::on_actionOpen_triggered()
                                     QString(tr("Open file")),
                                     lastDirectory,
                                     "Data Images (*.bin *.BIN *.rom *.ROM);;All files (*.*)");
+        
+        // 如果用户取消，直接返回
+        if (fileName.isEmpty())
+        {
+            ui->statusMessage->setText("");
+            return;
+        }
     }
    else fileName = lastDirectory;
    cmdStarted = false;
 
     QFileInfo info(fileName);
     lastDirectory = info.filePath();
+    
+    // 验证文件是否存在且可读
+    if (!info.exists() || !info.isFile())
+    {
+        ui->statusMessage->setText("");
+        return;
+    }
+    
     QFile file(fileName);
     ui->statusMessage->setText("");
     if ((info.size() > currentChipSize) && (currentChipSize != 0))
@@ -913,9 +928,24 @@ void MainWindow::on_actionExtract_from_ASUS_CAP_triggered()
                                 QString(tr("Open file")),
                                 lastDirectory,
                                 "ASUS Data Images (*.cap *.CAP);;All files (*.*)");
+    
+    // 如果用户取消，直接返回
+    if (fileName.isEmpty())
+    {
+        ui->statusMessage->setText("");
+        return;
+    }
+    
     QFileInfo info(fileName);
     ui->statusMessage->setText("");
     lastDirectory = info.filePath();
+
+    // 验证文件是否存在且可读
+    if (!info.exists() || !info.isFile())
+    {
+        ui->statusMessage->setText("");
+        return;
+    }
 
     if ((info.size() - 0x800 > currentChipSize) && (currentChipSize != 0))
     {
@@ -2007,6 +2037,14 @@ void MainWindow::on_actionExport_to_Intel_HEX_triggered()
                                      QString(tr("Save file")),
                                      lastDirectory,
                                      "Intel HEX Images (*.hex *.HEX);;All files (*.*)");         
+         
+         // Если пользователь отменяет, сразу выходим
+         if (fileName.isEmpty())
+         {
+             ui->statusMessage->setText("");
+             return;
+         }
+         
          QFileInfo info(fileName);
          ui->statusMessage->setText("");
          lastDirectory = info.filePath();
