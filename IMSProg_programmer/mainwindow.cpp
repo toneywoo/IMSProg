@@ -182,9 +182,17 @@ MainWindow::MainWindow(QWidget *parent) :
  // Initialize display optimization for large files
  displayLimit = 64 * 1024;  // Default 64KB display limit
  limitDisplayEnabled = true;
- updateHexEditDisplay();  // Use helper function to apply display limit
+ hexEditReadOnlyInitialized = false;
+    
  hexEdit->setHexCaps(true);
  hexEdit->setFont(heFont);
+    
+ // Set read-only mode immediately to disable editing
+ hexEdit->setReadOnly(true);
+ hexEditReadOnlyInitialized = true;
+    
+ updateHexEditDisplay();  // Use helper function to apply display limit
+    
  QStringList commandLineParams = QCoreApplication::arguments();
  QString commandLineFileName ="";
  if (commandLineParams.count() > 1)
@@ -330,7 +338,10 @@ void MainWindow::on_pushButton_clicked()
             }
           memcpy(chipData.data() + addr, buf.get() + (addr - k * step), step);
           addr = addr + step;
-          if (curBlock * step < 0x500) hexEdit->setData(chipData); //show buffer in hehedit while chip data is visible
+          // Performance optimization: Only update display for first 1KB of data
+          if (curBlock * step < 1024) {
+              updateHexEditDisplay();  // Use limited display instead of full setData
+          }
           curBlock++;
           qApp->processEvents();
           //ui->progressBar->setValue(static_cast<int>(curBlock));
@@ -358,7 +369,10 @@ void MainWindow::on_pushButton_clicked()
        else QMessageBox::about(this, tr("Error"), tr("Please select the chip parameters - manufacture and chip name"));
        return;
     }
-    hexEdit->setData(chipData);
+    // Performance optimization: Use limited display instead of rendering full data
+    // hexEdit->setData(chipData);  // Removed - too slow for large files
+    updateHexEditDisplay();  // Only show first 64KB
+    
     ui->statusMessage->setText("");
     ui->progressBar->setValue(0);
     ui->pushButton->setStyleSheet(grnKeyStyle);
@@ -938,11 +952,17 @@ void MainWindow::on_actionOpen_triggered()
     }
 
     chipData.replace(0, static_cast<int>(info.size()), buf);
-    hexEdit->setData(chipData);
-
+    
+    // Performance optimization: Don't render full data to UI, only calculate CRC32
+    // hexEdit->setData(chipData);  // Removed - too slow for large files
+    
     file.close();
 
+    // Calculate and display CRC32 checksum (uses full chipData in memory)
     ui->crcEdit->setText(getCRC32(chipData));
+    
+    // Optionally show first 64KB in hex editor for preview
+    updateHexEditDisplay();
 }
 
 void MainWindow::on_actionExtract_from_ASUS_CAP_triggered()
@@ -958,6 +978,7 @@ void MainWindow::on_actionExtract_from_ASUS_CAP_triggered()
     QFileInfo info(fileName);
     ui->statusMessage->setText("");
     lastDirectory = info.filePath();
+
     if ((info.size() - 0x800 > currentChipSize) && (currentChipSize != 0))
     {
       QMessageBox::about(this, tr("Error"), tr("The file size exceeds the chip size. Please select another chip or file or use `Save part` to split the file."));
@@ -1939,7 +1960,10 @@ void MainWindow::doNotDisturbCancel()
 void MainWindow::on_actionStop_triggered()
 {
 
-  hexEdit->setData(chipData);
+  // Performance optimization: Use limited display instead of rendering full data
+  // hexEdit->setData(chipData);  // Removed - too slow for large files
+  updateHexEditDisplay();  // Only show first 64KB
+  
   ui->crcEdit->setText(getCRC32(chipData));
   isHalted = true;
   QMessageBox::about(this, tr("Stop"), tr("Operation aborted!"));
@@ -2332,7 +2356,8 @@ void MainWindow::on_actionImport_from_Intel_HEX_triggered()
             QMessageBox::about(this, tr("Error"), tr("Not valid HEX format!"));
             file.close();
             fileName.clear();
-            hexEdit->setData(chipData);
+            // Performance optimization: Use limited display
+            updateHexEditDisplay();
             ui->progressBar->setValue(0);
             ui->crcEdit->setText(getCRC32(chipData));
             return;
@@ -2408,7 +2433,9 @@ void MainWindow::on_actionImport_from_Intel_HEX_triggered()
     }
     file.close();
     fileName.clear();
-    hexEdit->setData(chipData);
+    // Performance optimization: Use limited display instead of rendering full data
+    // hexEdit->setData(chipData);  // Removed - too slow for large files
+    updateHexEditDisplay();  // Only show first 64KB
     ui->progressBar->setValue(0);
     ui->crcEdit->setText(getCRC32(chipData));
 }
@@ -2857,6 +2884,8 @@ void MainWindow::receiveAddr4(QString addressData)
 // Helper function to update hex edit display with optional size limit
 void MainWindow::updateHexEditDisplay()
 {
+    if (!hexEdit) return;  // Safety check
+    
     if (limitDisplayEnabled && chipData.size() > displayLimit) {
         // Only display first N bytes to improve performance
         hexEdit->setData(chipData.left(displayLimit));
@@ -2868,9 +2897,14 @@ void MainWindow::updateHexEditDisplay()
                 tr(" (showing first %1 KB)").arg(displayLimit / 1024));
         }
     } else {
-        // Display all data
+        // Even for small data, keep read-only mode
         hexEdit->setData(chipData);
-        limitDisplayEnabled = false;
+        // Don't disable limitDisplayEnabled - keep read-only state
+    }
+    
+    // Ensure always in read-only mode
+    if (!hexEdit->isReadOnly()) {
+        hexEdit->setReadOnly(true);
     }
 }
 
@@ -2907,4 +2941,23 @@ void MainWindow::loadMoreData()
         limitDisplayEnabled = false;
         ui->statusMessage->setText(tr("All data loaded: %1 bytes").arg(chipData.size()));
     }
+}
+
+// Disable hex editing functionality - ensure read-only mode
+void MainWindow::disableHexEditing()
+{
+    if (!hexEdit || hexEditReadOnlyInitialized) {
+        return;
+    }
+    
+    // Set to read-only mode
+    hexEdit->setReadOnly(true);
+    
+    // Optionally disable address area to reduce rendering overhead
+    // hexEdit->setAddressArea(false);
+    
+    // Optionally disable ASCII area
+    // hexEdit->setAsciiArea(false);
+    
+    hexEditReadOnlyInitialized = true;
 }

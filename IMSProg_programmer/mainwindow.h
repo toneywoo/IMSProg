@@ -175,7 +175,9 @@ private:
     // Display optimization for large files
     qint64 displayLimit;  // Display limit in bytes (default 64KB)
     bool limitDisplayEnabled;  // Whether display limit is enabled
+    bool hexEditReadOnlyInitialized;  // Track if read-only mode has been initialized
     void updateHexEditDisplay();  // Helper function to update hex edit with limit
+    void disableHexEditing();  // Disable hex editing functionality
     
     void ch341StatusFlashing();
     QByteArray block;
