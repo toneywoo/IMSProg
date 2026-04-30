@@ -153,12 +153,7 @@ private:
     int max_rec;
     QString fileName, oldFileName, newFileName;
     bool cmdStarted;
-    QHexEdit *hexEdit;
-    
-    // Display optimization for large files
-    qint64 displayLimit;  // Display limit in bytes (default 64KB)
-    bool limitDisplayEnabled;  // Whether display limit is enabled
-    void updateHexEditDisplay();  // Helper function to update hex edit with limit
+    QLabel *filePathLabel;
     
     void ch341StatusFlashing();
     QByteArray block;

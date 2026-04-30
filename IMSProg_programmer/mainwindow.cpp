@@ -174,15 +174,12 @@ MainWindow::MainWindow(QWidget *parent) :
  ProgDeviceClose(current_programmer);
  QFont heFont;
  heFont = QFont("Monospace", 10);
- hexEdit = new QHexEdit(ui->frame);
- 
- displayLimit = 64 * 1024;
- limitDisplayEnabled = true;
-    
- hexEdit->setHexCaps(true);
- hexEdit->setFont(heFont);
-    
- hexEdit->setReadOnly(true);
+    filePathLabel = new QLabel(ui->frame);
+    filePathLabel->setGeometry(10, 10, ui->frame->width() - 20, ui->frame->height() - 20);
+    filePathLabel->setFont(QFont("Arial", 12));
+    filePathLabel->setText("No file loaded");
+    filePathLabel->setAlignment(Qt::AlignCenter);
+    filePathLabel->setWordWrap(true);
     
     
  QStringList commandLineParams = QCoreApplication::arguments();
@@ -593,7 +590,7 @@ void MainWindow::on_comboBox_size_currentIndexChanged(int index)
         chipData.resize(static_cast<int>(currentChipSize));
         chipData.fill(char(0xff));
         filled = 1;
-        hexEdit->setData(chipData);
+        // hexEdit->setData(chipData); // Removed
     }
     if ((currentChipSize !=0) && (currentPageSize!=0)  && (currentChipType > 0))
     {
@@ -602,7 +599,7 @@ void MainWindow::on_comboBox_size_currentIndexChanged(int index)
     chipData.resize(static_cast<int>(currentChipSize));
     chipData.fill(char(0xff));
     filled = 1;
-    hexEdit->setData(chipData);
+    // hexEdit->setData(chipData); // Removed
     }
     index = index + 0;
 }
@@ -654,7 +651,7 @@ void MainWindow::on_actionSave_triggered()
         QMessageBox::about(this, tr("Error"), tr("Error saving file!"));
         return;
     }
-    file.write(hexEdit->data());
+    file.write(chipData); // Changed from hexEdit->data()
     file.close();
     ui->statusMessage->setText("");
 }
@@ -899,6 +896,9 @@ void MainWindow::on_actionOpen_triggered()
     
     file.close();
 
+    if (filePathLabel) {
+        filePathLabel->setText(fileName);
+    }
     ui->crcEdit->setText(getCRC32(chipData));
     
 }
@@ -941,7 +941,10 @@ void MainWindow::on_actionExtract_from_ASUS_CAP_triggered()
         chipData.resize(static_cast<int>(info.size()) - 0x800);
     }
     chipData.replace(0, static_cast<int>(info.size()) - 0x800, buf);
-    hexEdit->setData(chipData);
+    // hexEdit->setData(chipData); // Removed
+    if (filePathLabel) {
+        filePathLabel->setText("CAP file extracted");
+    }
     ui->crcEdit->setText(getCRC32(chipData));
 }
 
@@ -952,7 +955,7 @@ void MainWindow::on_actionWrite_triggered()
     statusCH341 = ProgDeviceInit(current_programmer, currentChipType, currentI2CBusSpeed);
     if (statusCH341 == 0)
     {
-    chipData = hexEdit->data();
+    // chipData = hexEdit->data(); // Removed
     if (((currentNumBlocks > 0) && (currentBlockSize >0) && (currentChipType == 0)) ||
          ((currentNumBlocks > 0) && (currentPageSize >0) && (currentChipType == 1)) ||
          ((currentNumBlocks > 0) && (currentPageSize >0) && (currentChipType == 2)) ||
@@ -1004,7 +1007,7 @@ void MainWindow::on_actionWrite_triggered()
     ui->progressBar->setRange(0, 100);
     ui->progressBar->setValue(0);
     ui->checkBox_2->setStyleSheet("QCheckBox{font-weight:800;}");
-    chipData = hexEdit->data();
+    // chipData = hexEdit->data(); // Removed
     std::shared_ptr<uint8_t[]> buf(new uint8_t[step]);
     for (k = 0; k < numBlocks; k++)
       {
@@ -1202,7 +1205,7 @@ void MainWindow::on_comboBox_name_currentIndexChanged(const QString &arg1)
            chipData.resize(static_cast<int>(currentChipSize));
            chipData.fill(char(0xff));
            filled = 1;
-           hexEdit->setData(chipData);
+           // hexEdit->setData(chipData); // Removed
        }
        if ((currentChipSize !=0) && (currentPageSize!=0)  && (currentChipType > 0))
        {
@@ -1210,7 +1213,7 @@ void MainWindow::on_comboBox_name_currentIndexChanged(const QString &arg1)
            chipData.resize(static_cast<int>(currentChipSize));
            chipData.fill(char(0xff));
            filled = 1;
-           hexEdit->setData(chipData);
+           // hexEdit->setData(chipData); // Removed
        }
 
     }
@@ -1271,7 +1274,7 @@ void MainWindow::on_actionVerify_triggered()
                ui->progressBar->setRange(0, 100);
                ui->progressBar->setValue(0);
                std::shared_ptr<uint8_t[]> buf(new uint8_t[step]);
-               chipData = hexEdit->data();
+               // chipData = hexEdit->data(); // Removed
                ui->checkBox_3->setStyleSheet("QCheckBox{font-weight:800;}");
                ui->statusMessage->setText(tr("Veryfing data from ") + ui->comboBox_name->currentText());
                for (k = 0; k < numBlocks; k++)
@@ -1680,7 +1683,6 @@ void MainWindow::doNotDisturb()
    ui->comboBox_i2cSpeed->setDisabled(true);
    ui->comboBox_ECC->setDisabled(true);
 
-   hexEdit->blockSignals(true);
    timer->stop();
 }
 
@@ -1722,7 +1724,6 @@ void MainWindow::doNotDisturbCancel()
       ui->comboBox_i2cSpeed->setDisabled(false);
       ui->comboBox_ECC->setDisabled(false);
 
-      hexEdit->blockSignals(false);
       timer->start();
 }
 
@@ -1938,7 +1939,6 @@ void MainWindow::slotTimerAlarm()
 void MainWindow::resizeEvent(QResizeEvent* event)
 {
    QMainWindow::resizeEvent(event);
-   hexEdit->setGeometry(0,0,ui->frame->width(),ui->frame->height());
 }
 
 void MainWindow::closeSFDP()
@@ -1996,7 +1996,7 @@ void MainWindow::on_actionExport_to_Intel_HEX_triggered()
 {
     int addr = 0, hi_addr =0;
          QString result = "";
-         chipData = hexEdit->data();
+         // chipData = hexEdit->data(); // Removed
          int currSize = chipData.size();
          uint8_t i, counter = 0;
          int ostatok = 0;
@@ -2067,7 +2067,7 @@ void MainWindow::on_actionExport_to_Intel_HEX_triggered()
 
 void MainWindow::on_actionImport_from_Intel_HEX_triggered()
 {
-    chipData = hexEdit->data();
+    // chipData = hexEdit->data(); // Removed
     int chipSize = int(currentChipSize);
     uint_fast32_t lineLen, lo_addr, hi_addr, command, i;
     unsigned char currByte;
@@ -2132,7 +2132,7 @@ void MainWindow::on_actionImport_from_Intel_HEX_triggered()
                     QMessageBox::about(this, tr("Error"), tr("The address is larger than the size of the chip!"));
                     file.close();
                     fileName.clear();
-                    hexEdit->setData(chipData);
+                    // hexEdit->setData(chipData); // Removed
                     ui->progressBar->setValue(0);
                     ui->crcEdit->setText(getCRC32(chipData));
                     return;
@@ -2150,7 +2150,7 @@ void MainWindow::on_actionImport_from_Intel_HEX_triggered()
                     QMessageBox::about(this, tr("Error"), tr("Checksum error!"));
                     file.close();
                     fileName.clear();
-                    hexEdit->setData(chipData);
+                    // hexEdit->setData(chipData); // Removed
                     ui->progressBar->setValue(0);
                     ui->crcEdit->setText(getCRC32(chipData));
                     return;
@@ -2254,7 +2254,6 @@ void MainWindow::closeEvent(QCloseEvent( *event))
 void MainWindow::showEvent(QShowEvent* event)
 {
     QMainWindow::showEvent(event);
-    hexEdit->setGeometry(0, 0, ui->frame->width(), ui->frame->height());
 }
 
 void MainWindow::SetItemStatus(QString comboboxName, int itemNumber, bool setDisable)
