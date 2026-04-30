@@ -494,6 +494,114 @@ void DialogSFDP::closeEvent(QCloseEvent* event)
     QWidget::closeEvent(event);
 }
 
+void DialogSFDP::on_pushButton_unlock_wps_clicked()
+{
+    // UNLOCK WPS: Clear Bit 2 (WPS) in SR3 using 0x11 command
+    // Reference: W25Q128JV Datasheet, Write Status Register-3 (11h)
+    
+    if (numOfRegisters < 2) {
+        QMessageBox::warning(this, tr("Warning"), 
+            tr("SR3 (Status Register 3) is not available on this chip!"));
+        return;
+    }
+    
+    int stCH341 = ProgDeviceInit(programmerType, 0, 1);
+    if (stCH341 != 0) {
+        QMessageBox::about(this, tr("Error"), 
+            tr("Programmer ") + programmerName + tr(" is not connected!"));
+        return;
+    }
+    
+    // Step 1: Read current SR3 value
+    uint8_t current_sr3 = 0;
+    SPI_CONTROLLER_Chip_Select_Low(programmerType);
+    SPI_CONTROLLER_Write_One_Byte(0x15, programmerType);  // Read SR3
+    int retval = SPI_CONTROLLER_Read_NByte(&current_sr3, 1, SPI_CONTROLLER_SPEED_SINGLE, programmerType);
+    SPI_CONTROLLER_Chip_Select_High(programmerType);
+    usleep(1);
+    
+    if (retval) {
+        QMessageBox::about(this, tr("Error"), tr("Error reading SR3!"));
+        ProgDeviceClose(programmerType);
+        return;
+    }
+    
+    // Step 2: Calculate new SR3 value with WPS bit (Bit 2) cleared
+    // SR3 structure: [7:6]Reserved [5]HOLD/RST [4]SUS [3]CMP [2]WPS [1:0]DRV
+    uint8_t new_sr3 = current_sr3 & ~(1 << 2);  // Clear Bit 2 (WPS)
+    new_sr3 &= 0xFB;  // Force clear Bit 2, equivalent to &(~0x04)
+    
+    qDebug() << "Unlocking WPS: Current SR3 =" << Qt::hex << (int)current_sr3 
+             << "-> New SR3 =" << (int)new_sr3;
+    
+    // Step 3: Send Write Enable command
+    SPI_CONTROLLER_Chip_Select_Low(programmerType);
+    SPI_CONTROLLER_Write_One_Byte(0x06, programmerType);  // WREN
+    SPI_CONTROLLER_Chip_Select_High(programmerType);
+    usleep(1);
+    
+    // Step 4: Send special write enable for status register
+    SPI_CONTROLLER_Chip_Select_Low(programmerType);
+    SPI_CONTROLLER_Write_One_Byte(0x50, programmerType);  // Special WREN for SR
+    SPI_CONTROLLER_Chip_Select_High(programmerType);
+    usleep(1);
+    
+    // Step 5: Write SR3 using 0x11 command (Write Status Register-3)
+    // Command format: CS Low → 11h → SR3_value → CS High
+    SPI_CONTROLLER_Chip_Select_Low(programmerType);
+    SPI_CONTROLLER_Write_One_Byte(0x11, programmerType);  // 0x11 - Write Status Register-3
+    SPI_CONTROLLER_Write_One_Byte(new_sr3, programmerType);  // Write SR3 with WPS cleared
+    SPI_CONTROLLER_Chip_Select_High(programmerType);
+    usleep(1);
+    
+    // Step 6: Send Write Disable command
+    SPI_CONTROLLER_Chip_Select_Low(programmerType);
+    SPI_CONTROLLER_Write_One_Byte(0x04, programmerType);  // WRDI
+    SPI_CONTROLLER_Chip_Select_High(programmerType);
+    usleep(1);
+    
+    // Step 7: Wait for write to complete
+    usleep(10000);  // Wait 10ms
+    
+    // Step 8: Verify the write by reading SR3 again
+    uint8_t verify_sr3 = 0;
+    SPI_CONTROLLER_Chip_Select_Low(programmerType);
+    SPI_CONTROLLER_Write_One_Byte(0x15, programmerType);  // Read SR3
+    retval = SPI_CONTROLLER_Read_NByte(&verify_sr3, 1, SPI_CONTROLLER_SPEED_SINGLE, programmerType);
+    SPI_CONTROLLER_Chip_Select_High(programmerType);
+    
+    ProgDeviceClose(programmerType);
+    
+    // Step 9: Check result and update UI
+    if (!retval && verify_sr3 == new_sr3) {
+        qDebug() << "WPS unlock successful! SR3 =" << Qt::hex << (int)verify_sr3;
+        
+        // Update UI to reflect the change
+        printRegData(2, verify_sr3);  // Update SR3 display
+        
+        QMessageBox::information(this, tr("Success"), 
+            tr("WPS bit has been cleared successfully!\n"
+               "SR3 changed from 0x%1 to 0x%2")
+                .arg(current_sr3, 0, 16)
+                .arg(verify_sr3, 0, 16));
+    } else {
+        qDebug() << "WPS unlock failed! Expected:" << Qt::hex << (int)new_sr3 
+                 << "Got:" << (int)verify_sr3;
+        
+        // Still update UI with current value
+        if (!retval) {
+            printRegData(2, verify_sr3);
+        }
+        
+        QMessageBox::warning(this, tr("Warning"), 
+            tr("Failed to clear WPS bit!\n"
+               "Expected: 0x%1, Actual: 0x%2\n"
+               "The chip may not support SR3 write operation.")
+                .arg(new_sr3, 0, 16)
+                .arg(verify_sr3, 0, 16));
+    }
+}
+
 void DialogSFDP::printRegData(uint8_t regNumber, uint8_t regData)
 {
     uint8_t i;
