@@ -988,7 +988,6 @@ void MainWindow::on_actionExtract_from_ASUS_CAP_triggered()
 
     if (!file.open(QIODevice::ReadOnly))
     {
-
         return;
     }
     ui->statusMessage->setText(tr("Current file: ") + info.fileName());
@@ -1004,8 +1003,15 @@ void MainWindow::on_actionExtract_from_ASUS_CAP_triggered()
         chipData.resize(static_cast<int>(info.size()) - 0x800);
     }
     chipData.replace(0, static_cast<int>(info.size()) - 0x800, buf);
-    hexEdit->setData(chipData);
+    
+    // Performance optimization: Use limited display instead of rendering full data
+    // hexEdit->setData(chipData);  // Removed - too slow for large files
+    
+    // Calculate and display CRC32 checksum
     ui->crcEdit->setText(getCRC32(chipData));
+    
+    // Show first 64KB in hex editor
+    updateHexEditDisplay();
 }
 
 void MainWindow::on_actionWrite_triggered()
@@ -2511,7 +2517,14 @@ void MainWindow::preparingToCompare(bool type)
     // For comparing function
     // type = 0 - file reading
     // type = 1 - chip reading
-    if (filled == 0) oldChipData = hexEdit->data();
+    
+    // Performance optimization: Don't copy full data from hexEdit during file open
+    // Only copy when actually needed for comparison (chip read operations)
+    if (type == 1 && filled == 0) {
+        // Only copy old data when reading from chip (for comparison)
+        oldChipData = hexEdit->data();
+    }
+    
     if (type == 0)
     {
         if (numberOfReads > 0)
