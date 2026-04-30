@@ -1,0 +1,264 @@
+-- The C compiler identification is GNU 12.3.0
+-- The CXX compiler identification is GNU 12.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found PkgConfig: /usr/bin/pkg-config (found version "2.5.1")
+-- Checking for module 'libusb-1.0'
+--   Found libusb-1.0, version 1.0.28
+-- Checking for module 'udev'
+--   Found udev, version 255
+-- Configuring done (0.9s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/tony/dev-kingren/IMSProg/IMSProg_programmer/build
+[  0%] Built target IMSProg_autogen_timestamp_deps
+[  2%] Automatic MOC and UIC for target IMSProg
+AutoUic: /home/tony/dev-kingren/IMSProg/IMSProg_programmer/mainwindow.ui: Warning: action `actionSave_Part' not declared
+/home/tony/dev-kingren/IMSProg/IMSProg_programmer/mainwindow.ui: Warning: action `actionLoad_Part' not declared
+[  2%] Built target IMSProg_autogen
+[ 13%] Generating chipProgrammer_es_ES.qm
+[ 13%] Generating chipProgrammer_hu_HU.qm
+[ 13%] Automatic RCC for recource.qrc
+[ 13%] Generating chipProgrammer_de_DE.qm
+[ 13%] Generating chipProgrammer_zh_TW.qm
+[ 15%] Generating chipProgrammer_ru_RU.qm
+[ 17%] Generating chipProgrammer_it_IT.qm
+[ 19%] Generating chipProgrammer_pt_BR.qm
+[ 23%] Generating chipProgrammer_zh_CN.qm
+[ 23%] Generating chipProgrammer_uk_UA.qm
+Updating '/home/tony/dev-kingren/IMSProg/IMSProg_programmer/build/chipProgrammer_zh_CN.qm'...
+Updating '/home/tony/dev-kingren/IMSProg/IMSProg_programmer/build/chipProgrammer_pt_BR.qm'...
+Updating '/home/tony/dev-kingren/IMSProg/IMSProg_programmer/build/chipProgrammer_uk_UA.qm'...
+Updating '/home/tony/dev-kingren/IMSProg/IMSProg_programmer/build/chipProgrammer_hu_HU.qm'...
+生成 394 条翻译（394 条已经完成和 0 条未完成）
+生成 394 条翻译（394 条已经完成和 0 条未完成）
+Updating '/home/tony/dev-kingren/IMSProg/IMSProg_programmer/build/chipProgrammer_it_IT.qm'...
+Updating '/home/tony/dev-kingren/IMSProg/IMSProg_programmer/build/chipProgrammer_de_DE.qm'...
+Updating '/home/tony/dev-kingren/IMSProg/IMSProg_programmer/build/chipProgrammer_zh_TW.qm'...
+生成 394 条翻译（394 条已经完成和 0 条未完成）
+Updating '/home/tony/dev-kingren/IMSProg/IMSProg_programmer/build/chipProgrammer_ru_RU.qm'...
+生成 394 条翻译（394 条已经完成和 0 条未完成）
+生成 394 条翻译（394 条已经完成和 0 条未完成）
+生成 394 条翻译（394 条已经完成和 0 条未完成）
+生成 394 条翻译（394 条已经完成和 0 条未完成）
+Updating '/home/tony/dev-kingren/IMSProg/IMSProg_programmer/build/chipProgrammer_es_ES.qm'...
+生成 394 条翻译（394 条已经完成和 0 条未完成）
+生成 394 条翻译（394 条已经完成和 0 条未完成）
+[ 26%] Building CXX object CMakeFiles/IMSProg.dir/qhexedit.cpp.o
+[ 30%] Building CXX object CMakeFiles/IMSProg.dir/IMSProg_autogen/mocs_compilation.cpp.o
+[ 28%] Building CXX object CMakeFiles/IMSProg.dir/mainwindow.cpp.o
+[ 34%] Building CXX object CMakeFiles/IMSProg.dir/dialogbbm.cpp.o
+[ 32%] Building CXX object CMakeFiles/IMSProg.dir/main.cpp.o
+[ 36%] Building CXX object CMakeFiles/IMSProg.dir/chunks.cpp.o
+[ 41%] Building CXX object CMakeFiles/IMSProg.dir/dialogsecurity.cpp.o
+[ 41%] Building CXX object CMakeFiles/IMSProg.dir/dialognandsecurity.cpp.o
+[ 45%] Building CXX object CMakeFiles/IMSProg.dir/dialogsfdp.cpp.o
+[ 47%] Building CXX object CMakeFiles/IMSProg.dir/dialogfill.cpp.o
+[ 43%] Building CXX object CMakeFiles/IMSProg.dir/dialogrp.cpp.o
+[ 50%] Building CXX object CMakeFiles/IMSProg.dir/dialogsp.cpp.o
+[ 54%] Building CXX object CMakeFiles/IMSProg.dir/searchdialog.cpp.o
+[ 56%] Building CXX object CMakeFiles/IMSProg.dir/dialognandsr.cpp.o
+[ 56%] Building CXX object CMakeFiles/IMSProg.dir/commands.cpp.o
+[ 60%] Building CXX object CMakeFiles/IMSProg.dir/hexutility.cpp.o
+[ 60%] Building CXX object CMakeFiles/IMSProg.dir/dialogsetaddr.cpp.o
+[ 65%] Building CXX object CMakeFiles/IMSProg.dir/dialogcompare.cpp.o
+[ 65%] Building CXX object CMakeFiles/IMSProg.dir/dialoginfo.cpp.o
+[ 67%] Building CXX object CMakeFiles/IMSProg.dir/dialogsr.cpp.o
+[ 71%] Building C object CMakeFiles/IMSProg.dir/bitbang_microwire.c.o
+[ 71%] Building C object CMakeFiles/IMSProg.dir/ch341a_gpio.c.o
+[ 73%] Building C object CMakeFiles/IMSProg.dir/ch347.c.o
+[ 76%] Building C object CMakeFiles/IMSProg.dir/ch34x_i2c.c.o
+[ 80%] Building C object CMakeFiles/IMSProg.dir/timer.c.o
+[ 78%] Building CXX object CMakeFiles/IMSProg.dir/dialogabout.cpp.o
+[ 82%] Building C object CMakeFiles/IMSProg.dir/spi_controller.c.o
+[ 84%] Building C object CMakeFiles/IMSProg.dir/spi_nor_flash.c.o
+[ 86%] Building C object CMakeFiles/IMSProg.dir/ch341a_spi.c.o
+[ 91%] Building CXX object CMakeFiles/IMSProg.dir/color_manager.cpp.o
+[ 93%] Building CXX object CMakeFiles/IMSProg.dir/IMSProg_autogen/EWIEGA46WW/qrc_recource.cpp.o
+[ 95%] Building C object CMakeFiles/IMSProg.dir/flashcmd_api.c.o
+[ 89%] Building C object CMakeFiles/IMSProg.dir/mw_eeprom.c.o
+/home/tony/dev-kingren/IMSProg/IMSProg_programmer/mainwindow.cpp: In constructor ‘MainWindow::MainWindow(QWidget*)’:
+/home/tony/dev-kingren/IMSProg/IMSProg_programmer/mainwindow.cpp:185:2: error: ‘hexEditReadOnlyInitialized’ was not declared in this scope
+  185 |  hexEditReadOnlyInitialized = false;
+      |  ^~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/tony/dev-kingren/IMSProg/IMSProg_programmer/mainwindow.cpp: In member function ‘void MainWindow::doNotDisturb()’:
+/home/tony/dev-kingren/IMSProg/IMSProg_programmer/mainwindow.cpp:1742:8: error: ‘class Ui::MainWindow’ has no member named ‘actionLoad_Part’
+ 1742 |    ui->actionLoad_Part->setDisabled(true);
+      |        ^~~~~~~~~~~~~~~
+/home/tony/dev-kingren/IMSProg/IMSProg_programmer/mainwindow.cpp:1743:8: error: ‘class Ui::MainWindow’ has no member named ‘actionSave_Part’; did you mean ‘actionSave’?
+ 1743 |    ui->actionSave_Part->setDisabled(true);
+      |        ^~~~~~~~~~~~~~~
+      |        actionSave
+/home/tony/dev-kingren/IMSProg/IMSProg_programmer/mainwindow.cpp:1754:8: error: ‘class Ui::MainWindow’ has no member named ‘actionFind_Replace’
+ 1754 |    ui->actionFind_Replace->setDisabled(true);
+      |        ^~~~~~~~~~~~~~~~~~
+/home/tony/dev-kingren/IMSProg/IMSProg_programmer/mainwindow.cpp:1755:8: error: ‘class Ui::MainWindow’ has no member named ‘actionUndo’
+ 1755 |    ui->actionUndo->setDisabled(true);
+      |        ^~~~~~~~~~
+/home/tony/dev-kingren/IMSProg/IMSProg_programmer/mainwindow.cpp:1756:8: error: ‘class Ui::MainWindow’ has no member named ‘actionRedo’; did you mean ‘actionRead’?
+ 1756 |    ui->actionRedo->setDisabled(true);
+      |        ^~~~~~~~~~
+      |        actionRead
+/home/tony/dev-kingren/IMSProg/IMSProg_programmer/mainwindow.cpp:1758:8: error: ‘class Ui::MainWindow’ has no member named ‘actionGoto_address’
+ 1758 |    ui->actionGoto_address->setDisabled(true);
+      |        ^~~~~~~~~~~~~~~~~~
+/home/tony/dev-kingren/IMSProg/IMSProg_programmer/mainwindow.cpp:1759:8: error: ‘class Ui::MainWindow’ has no member named ‘actionCompare_files’
+ 1759 |    ui->actionCompare_files->setDisabled(true);
+      |        ^~~~~~~~~~~~~~~~~~~
+/home/tony/dev-kingren/IMSProg/IMSProg_programmer/mainwindow.cpp:1760:8: error: ‘class Ui::MainWindow’ has no member named ‘actionFill_with_code’
+ 1760 |    ui->actionFill_with_code->setDisabled(true);
+      |        ^~~~~~~~~~~~~~~~~~~~
+/home/tony/dev-kingren/IMSProg/IMSProg_programmer/mainwindow.cpp: In member function ‘void MainWindow::doNotDisturbCancel()’:
+/home/tony/dev-kingren/IMSProg/IMSProg_programmer/mainwindow.cpp:1792:11: error: ‘class Ui::MainWindow’ has no member named ‘actionLoad_Part’
+ 1792 |       ui->actionLoad_Part->setDisabled(false);
+      |           ^~~~~~~~~~~~~~~
+/home/tony/dev-kingren/IMSProg/IMSProg_programmer/mainwindow.cpp:1793:11: error: ‘class Ui::MainWindow’ has no member named ‘actionSave_Part’; did you mean ‘actionSave’?
+ 1793 |       ui->actionSave_Part->setDisabled(false);
+      |           ^~~~~~~~~~~~~~~
+      |           actionSave
+/home/tony/dev-kingren/IMSProg/IMSProg_programmer/mainwindow.cpp:1804:11: error: ‘class Ui::MainWindow’ has no member named ‘actionFind_Replace’
+ 1804 |       ui->actionFind_Replace->setDisabled(false);
+      |           ^~~~~~~~~~~~~~~~~~
+/home/tony/dev-kingren/IMSProg/IMSProg_programmer/mainwindow.cpp:1805:11: error: ‘class Ui::MainWindow’ has no member named ‘actionUndo’
+ 1805 |       ui->actionUndo->setDisabled(false);
+      |           ^~~~~~~~~~
+/home/tony/dev-kingren/IMSProg/IMSProg_programmer/mainwindow.cpp:1806:11: error: ‘class Ui::MainWindow’ has no member named ‘actionRedo’; did you mean ‘actionRead’?
+ 1806 |       ui->actionRedo->setDisabled(false);
+      |           ^~~~~~~~~~
+      |           actionRead
+/home/tony/dev-kingren/IMSProg/IMSProg_programmer/mainwindow.cpp:1808:11: error: ‘class Ui::MainWindow’ has no member named ‘actionGoto_address’
+ 1808 |       ui->actionGoto_address->setDisabled(false);
+      |           ^~~~~~~~~~~~~~~~~~
+/home/tony/dev-kingren/IMSProg/IMSProg_programmer/mainwindow.cpp:1809:11: error: ‘class Ui::MainWindow’ has no member named ‘actionCompare_files’
+ 1809 |       ui->actionCompare_files->setDisabled(false);
+      |           ^~~~~~~~~~~~~~~~~~~
+/home/tony/dev-kingren/IMSProg/IMSProg_programmer/mainwindow.cpp:1810:11: error: ‘class Ui::MainWindow’ has no member named ‘actionFill_with_code’
+ 1810 |       ui->actionFill_with_code->setDisabled(false);
+      |           ^~~~~~~~~~~~~~~~~~~~
+gmake[2]: *** [CMakeFiles/IMSProg.dir/build.make:215：CMakeFiles/IMSProg.dir/mainwindow.cpp.o] 错误 1
+gmake[2]: *** 正在等待未完成的任务....
+gmake[1]: *** [CMakeFiles/Makefile2:123：CMakeFiles/IMSProg.dir/all] 错误 2
+gmake: *** [Makefile:136：all] 错误 2
+-- Install configuration: ""
+CMake Error at build/cmake_install.cmake:52 (file):
+  file INSTALL cannot find
+  "/home/tony/dev-kingren/IMSProg/IMSProg_programmer/build/IMSProg": No such
+  file or directory.
+
+
+-- The CXX compiler identification is GNU 12.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done (0.6s)
+-- Generating done (0.3s)
+-- Build files have been written to: /home/tony/dev-kingren/IMSProg/IMSProg_editor/build
+[  0%] Built target IMSProg_editor_autogen_timestamp_deps
+[  5%] Automatic MOC and UIC for target IMSProg_editor
+[  5%] Built target IMSProg_editor_autogen
+[ 38%] Generating chipEditor_pt_BR.qm
+[ 38%] Generating chipEditor_es_ES.qm
+[ 38%] Generating chipEditor_zh_TW.qm
+[ 38%] Automatic RCC for resources.qrc
+[ 38%] Generating chipEditor_hu_HU.qm
+[ 38%] Generating chipEditor_de_DE.qm
+[ 44%] Generating chipEditor_it_IT.qm
+[ 61%] Generating chipEditor_uk_UA.qm
+[ 61%] Generating chipEditor_ru_RU.qm
+[ 61%] Generating chipEditor_zh_CN.qm
+Updating '/home/tony/dev-kingren/IMSProg/IMSProg_editor/build/chipEditor_pt_BR.qm'...
+Updating '/home/tony/dev-kingren/IMSProg/IMSProg_editor/build/chipEditor_zh_TW.qm'...
+Updating '/home/tony/dev-kingren/IMSProg/IMSProg_editor/build/chipEditor_hu_HU.qm'...
+生成 47 条翻译（47 条已经完成和 0 条未完成）
+生成 47 条翻译（47 条已经完成和 0 条未完成）
+生成 47 条翻译（47 条已经完成和 0 条未完成）
+Updating '/home/tony/dev-kingren/IMSProg/IMSProg_editor/build/chipEditor_de_DE.qm'...
+Updating '/home/tony/dev-kingren/IMSProg/IMSProg_editor/build/chipEditor_it_IT.qm'...
+生成 47 条翻译（47 条已经完成和 0 条未完成）
+生成 47 条翻译（47 条已经完成和 0 条未完成）
+Updating '/home/tony/dev-kingren/IMSProg/IMSProg_editor/build/chipEditor_es_ES.qm'...
+生成 47 条翻译（47 条已经完成和 0 条未完成）
+Updating '/home/tony/dev-kingren/IMSProg/IMSProg_editor/build/chipEditor_zh_CN.qm'...
+Updating '/home/tony/dev-kingren/IMSProg/IMSProg_editor/build/chipEditor_ru_RU.qm'...
+生成 47 条翻译（47 条已经完成和 0 条未完成）
+生成 47 条翻译（47 条已经完成和 0 条未完成）
+Updating '/home/tony/dev-kingren/IMSProg/IMSProg_editor/build/chipEditor_uk_UA.qm'...
+生成 47 条翻译（47 条已经完成和 0 条未完成）
+[ 66%] Building CXX object CMakeFiles/IMSProg_editor.dir/IMSProg_editor_autogen/mocs_compilation.cpp.o
+[ 77%] Building CXX object CMakeFiles/IMSProg_editor.dir/ezp_chip_editor.cpp.o
+[ 77%] Building CXX object CMakeFiles/IMSProg_editor.dir/main.cpp.o
+[ 83%] Building CXX object CMakeFiles/IMSProg_editor.dir/delegates.cpp.o
+[ 88%] Building CXX object CMakeFiles/IMSProg_editor.dir/IMSProg_editor_autogen/EWIEGA46WW/qrc_resources.cpp.o
+[ 94%] Linking CXX executable IMSProg_editor
+[100%] Built target IMSProg_editor
+-- Install configuration: ""
+-- Installing: /usr/bin/IMSProg_editor
+CMake Error at build/cmake_install.cmake:52 (file):
+  file INSTALL cannot copy file
+  "/home/tony/dev-kingren/IMSProg/IMSProg_editor/build/IMSProg_editor" to
+  "/usr/bin/IMSProg_editor": Read-only file system.
+
+
+-- The CXX compiler identification is GNU 12.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done (0.3s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/tony/dev-kingren/IMSProg/IMSProg_database_update/build
+[  0%] Built target IMSProg_database_update_autogen_timestamp_deps
+[  5%] Automatic MOC and UIC for target IMSProg_database_update
+[  5%] Built target IMSProg_database_update_autogen
+[ 17%] Generating chipUpdater_zh_TW.qm
+[ 17%] Generating chipUpdater_it_IT.qm
+[ 52%] Generating chipUpdater_de_DE.qm
+[ 52%] Generating chipUpdater_hu_HU.qm
+[ 52%] Generating chipUpdater_es_ES.qm
+[ 52%] Generating chipUpdater_uk_UA.qm
+[ 52%] Generating chipUpdater_pt_BR.qm
+[ 52%] Generating chipUpdater_ru_RU.qm
+[ 58%] Automatic RCC for resource.qrc
+[ 64%] Generating chipUpdater_zh_CN.qm
+Updating '/home/tony/dev-kingren/IMSProg/IMSProg_database_update/build/chipUpdater_zh_TW.qm'...
+Updating '/home/tony/dev-kingren/IMSProg/IMSProg_database_update/build/chipUpdater_it_IT.qm'...
+生成 13 条翻译（13 条已经完成和 0 条未完成）
+生成 13 条翻译（13 条已经完成和 0 条未完成）
+Updating '/home/tony/dev-kingren/IMSProg/IMSProg_database_update/build/chipUpdater_es_ES.qm'...
+Updating '/home/tony/dev-kingren/IMSProg/IMSProg_database_update/build/chipUpdater_de_DE.qm'...
+Updating '/home/tony/dev-kingren/IMSProg/IMSProg_database_update/build/chipUpdater_hu_HU.qm'...
+生成 13 条翻译（13 条已经完成和 0 条未完成）
+生成 13 条翻译（13 条已经完成和 0 条未完成）
+生成 13 条翻译（13 条已经完成和 0 条未完成）
+Updating '/home/tony/dev-kingren/IMSProg/IMSProg_database_update/build/chipUpdater_uk_UA.qm'...
+Updating '/home/tony/dev-kingren/IMSProg/IMSProg_database_update/build/chipUpdater_pt_BR.qm'...
+Updating '/home/tony/dev-kingren/IMSProg/IMSProg_database_update/build/chipUpdater_ru_RU.qm'...
+生成 13 条翻译（13 条已经完成和 0 条未完成）
+生成 13 条翻译（13 条已经完成和 0 条未完成）
+生成 13 条翻译（13 条已经完成和 0 条未完成）
+Updating '/home/tony/dev-kingren/IMSProg/IMSProg_database_update/build/chipUpdater_zh_CN.qm'...
+生成 13 条翻译（13 条已经完成和 0 条未完成）
+[ 88%] Building CXX object CMakeFiles/IMSProg_database_update.dir/mainwindow.cpp.o
+[ 88%] Building CXX object CMakeFiles/IMSProg_database_update.dir/main.cpp.o
+[ 88%] Building CXX object CMakeFiles/IMSProg_database_update.dir/IMSProg_database_update_autogen/EWIEGA46WW/qrc_resource.cpp.o
+[ 88%] Building CXX object CMakeFiles/IMSProg_database_update.dir/IMSProg_database_update_autogen/mocs_compilation.cpp.o
+[ 94%] Linking CXX executable IMSProg_database_update
+[100%] Built target IMSProg_database_update
+-- Install configuration: ""
+-- Installing: /usr/bin/IMSProg_database_update
+CMake Error at build/cmake_install.cmake:52 (file):
+  file INSTALL cannot copy file
+  "/home/tony/dev-kingren/IMSProg/IMSProg_database_update/build/IMSProg_database_update"
+  to "/usr/bin/IMSProg_database_update": Read-only file system.
+
+

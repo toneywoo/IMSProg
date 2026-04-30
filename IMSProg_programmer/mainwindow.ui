@@ -1014,17 +1014,12 @@ QPushButton::pressed{background-color: rgb(115, 210, 22);}</string>
     </property>
     <addaction name="actionOpen"/>
     <addaction name="actionSave"/>
-    <addaction name="separator"/>
-    <addaction name="actionLoad_Part"/>
-    <addaction name="actionSave_Part"/>
-    <addaction name="separator"/>
-    <addaction name="actionImport_from_Intel_HEX"/>
-    <addaction name="actionExport_to_Intel_HEX"/>
-    <addaction name="actionExtract_from_ASUS_CAP"/>
-    <addaction name="separator"/>
     <addaction name="actionEdit_chips_Database"/>
     <addaction name="separator"/>
-    <addaction name="actionExit"/>
+    <addaction name="actionDetect"/>
+    <addaction name="actionChip_info"/>
+    <addaction name="actionSecurity_registers"/>
+    <addaction name="actionBad_block_management"/>
    </widget>
    <widget class="QMenu" name="menuProgrammer">
     <property name="title">
@@ -1045,17 +1040,7 @@ QPushButton::pressed{background-color: rgb(115, 210, 22);}</string>
     <property name="title">
      <string>Hex Editor</string>
     </property>
-    <addaction name="actionUndo"/>
-    <addaction name="actionRedo"/>
-    <addaction name="actionCopy"/>
-    <addaction name="actionPaste"/>
-    <addaction name="actionFind_Replace"/>
-    <addaction name="actionGoto_address"/>
-    <addaction name="separator"/>
     <addaction name="actionChecksum_calculate"/>
-    <addaction name="actionCompare_files"/>
-    <addaction name="actionFill_test_image"/>
-    <addaction name="actionFill_with_code"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -1101,8 +1086,6 @@ QPushButton::pressed{background-color: rgb(115, 210, 22);}</string>
    </attribute>
    <addaction name="actionOpen"/>
    <addaction name="actionSave"/>
-   <addaction name="actionSave_Part"/>
-   <addaction name="actionLoad_Part"/>
    <addaction name="actionEdit_chips_Database"/>
    <addaction name="separator"/>
    <addaction name="actionDetect"/>
@@ -1112,9 +1095,6 @@ QPushButton::pressed{background-color: rgb(115, 210, 22);}</string>
    <addaction name="actionVerify"/>
    <addaction name="actionStop"/>
    <addaction name="separator"/>
-   <addaction name="actionUndo"/>
-   <addaction name="actionRedo"/>
-   <addaction name="actionFind_Replace"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionOpen">
@@ -1213,66 +1193,6 @@ QPushButton::pressed{background-color: rgb(115, 210, 22);}</string>
     <string>Ctrl+T</string>
    </property>
   </action>
-  <action name="actionUndo">
-   <property name="icon">
-    <iconset resource="recource.qrc">
-     <normaloff>:/res/img/undo.png</normaloff>:/res/img/undo.png</iconset>
-   </property>
-   <property name="text">
-    <string>Undo</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+Z</string>
-   </property>
-  </action>
-  <action name="actionRedo">
-   <property name="icon">
-    <iconset resource="recource.qrc">
-     <normaloff>:/res/img/redo64.png</normaloff>:/res/img/redo64.png</iconset>
-   </property>
-   <property name="text">
-    <string>Redo</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+Y</string>
-   </property>
-  </action>
-  <action name="actionSave_Part">
-   <property name="icon">
-    <iconset resource="recource.qrc">
-     <normaloff>:/res/img/saveBlock64.png</normaloff>:/res/img/saveBlock64.png</iconset>
-   </property>
-   <property name="text">
-    <string>Save Part</string>
-   </property>
-   <property name="shortcut">
-    <string/>
-   </property>
-  </action>
-  <action name="actionLoad_Part">
-   <property name="icon">
-    <iconset resource="recource.qrc">
-     <normaloff>:/res/img/loadBlock64.png</normaloff>:/res/img/loadBlock64.png</iconset>
-   </property>
-   <property name="text">
-    <string>Load Part</string>
-   </property>
-   <property name="shortcut">
-    <string/>
-   </property>
-  </action>
-  <action name="actionFind_Replace">
-   <property name="icon">
-    <iconset resource="recource.qrc">
-     <normaloff>:/res/img/hexsearch64.png</normaloff>:/res/img/hexsearch64.png</iconset>
-   </property>
-   <property name="text">
-    <string>Find / Replace</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+F</string>
-   </property>
-  </action>
   <action name="actionAbout">
    <property name="text">
     <string>About</string>
@@ -1365,21 +1285,6 @@ QPushButton::pressed{background-color: rgb(115, 210, 22);}</string>
     <string>Extract from ASUS CAP</string>
    </property>
   </action>
-  <action name="actionGoto_address">
-   <property name="icon">
-    <iconset resource="recource.qrc">
-     <normaloff>:/res/img/goto64.png</normaloff>:/res/img/goto64.png</iconset>
-   </property>
-   <property name="text">
-    <string>Goto address</string>
-   </property>
-   <property name="toolTip">
-    <string>Move the cursor to the entered address</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+G</string>
-   </property>
-  </action>
   <action name="actionSecurity_registers">
    <property name="icon">
     <iconset resource="recource.qrc">
@@ -1390,54 +1295,6 @@ QPushButton::pressed{background-color: rgb(115, 210, 22);}</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+U</string>
-   </property>
-  </action>
-  <action name="actionFill_test_image">
-   <property name="icon">
-    <iconset resource="recource.qrc">
-     <normaloff>:/res/img/fill64.png</normaloff>:/res/img/fill64.png</iconset>
-   </property>
-   <property name="text">
-    <string>Fill test image</string>
-   </property>
-   <property name="toolTip">
-    <string>Filling the hex editor with a test array</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+L</string>
-   </property>
-  </action>
-  <action name="actionCompare_files">
-   <property name="icon">
-    <iconset resource="recource.qrc">
-     <normaloff>:/res/img/compare64.png</normaloff>:/res/img/compare64.png</iconset>
-   </property>
-   <property name="text">
-    <string>Compare files</string>
-   </property>
-   <property name="toolTip">
-    <string>Compares the results of the last and penultimate chip read or file open operation</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+M</string>
-   </property>
-  </action>
-  <action name="actionCopy">
-   <property name="icon">
-    <iconset resource="recource.qrc">
-     <normaloff>:/res/img/copy64.png</normaloff>:/res/img/copy64.png</iconset>
-   </property>
-   <property name="text">
-    <string>Copy</string>
-   </property>
-  </action>
-  <action name="actionPaste">
-   <property name="icon">
-    <iconset resource="recource.qrc">
-     <normaloff>:/res/img/paste64.png</normaloff>:/res/img/paste64.png</iconset>
-   </property>
-   <property name="text">
-    <string>Paste</string>
    </property>
   </action>
   <action name="actionBad_block_management">
@@ -1470,18 +1327,6 @@ QPushButton::pressed{background-color: rgb(115, 210, 22);}</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+J</string>
-   </property>
-  </action>
-  <action name="actionFill_with_code">
-   <property name="icon">
-    <iconset resource="recource.qrc">
-     <normaloff>:/res/img/fill64.png</normaloff>:/res/img/fill64.png</iconset>
-   </property>
-   <property name="text">
-    <string>Filling with code</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+K</string>
    </property>
   </action>
   <actiongroup name="actionSetProgrammerType">

@@ -67,10 +67,6 @@ public:
 
 public slots:
 
-    void receiveAddr(QString);
-    void receiveAddr2(QString);
-    void receiveAddr3(qint64);
-    void receiveAddr4(QString);
     void closeSFDP();
     void closeSR();
     void closeNandSR();
@@ -85,8 +81,6 @@ private slots:
     void on_actionDetect_triggered();
     void on_actionSave_triggered();
     void on_actionErase_triggered();
-    void on_actionUndo_triggered();
-    void on_actionRedo_triggered();
     void on_actionOpen_triggered();
     void on_actionWrite_triggered();
     void on_actionRead_triggered();
@@ -95,9 +89,6 @@ private slots:
     void on_comboBox_name_currentIndexChanged(const QString &arg1);
     void on_actionVerify_triggered();
     void on_pushButton_3_clicked();
-    void on_actionSave_Part_triggered();
-    void on_actionLoad_Part_triggered();
-    void on_actionFind_Replace_triggered();
     void on_comboBox_type_currentIndexChanged(int index);
     void on_actionAbout_triggered();
     void on_actionChecksum_calculate_triggered();
@@ -113,15 +104,9 @@ private slots:
     void on_actionExtract_from_ASUS_CAP_triggered();
     void resizeEvent(QResizeEvent* event);
     void slotTimerAlarm();
-    void on_actionGoto_address_triggered();
     void on_comboBox_i2cSpeed_currentIndexChanged(int index);
     void on_actionSecurity_registers_triggered();
-    void on_actionFill_test_image_triggered();
-    void preparingToCompare(bool type);
-    void on_actionCompare_files_triggered();
     void on_comboBox_ECC_currentIndexChanged(int index);
-    void on_actionCopy_triggered();
-    void on_actionPaste_triggered();
     void on_actionBad_block_management_triggered();
     void on_actionCH341A_B_v1_2_triggered();
     void on_actionCH341A_v1_7_triggered();
@@ -132,8 +117,6 @@ private slots:
     void on_actionCH347T_v1_1_triggered();
     void on_actionShow_programmer_version_triggered();
     void on_actionCheck_erase_triggered();
-    void on_actionFill_with_code_triggered();
-    void loadMoreData();  // Load more data when scrolling to bottom
 
 private:
     Ui::MainWindow *ui;
@@ -175,9 +158,7 @@ private:
     // Display optimization for large files
     qint64 displayLimit;  // Display limit in bytes (default 64KB)
     bool limitDisplayEnabled;  // Whether display limit is enabled
-    bool hexEditReadOnlyInitialized;  // Track if read-only mode has been initialized
     void updateHexEditDisplay();  // Helper function to update hex edit with limit
-    void disableHexEditing();  // Disable hex editing functionality
     
     void ch341StatusFlashing();
     QByteArray block;
